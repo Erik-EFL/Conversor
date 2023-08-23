@@ -29,11 +29,21 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>DOCX to HTML Converter</h1>
-        <button onClick={handleConvert}>Convert All</button>
-        <p>Status: {status}</p>
+    <div className='flex flex-col justify-center gap-9 items-center max-w-xl h-[100vh] m-auto'>
+      <h1 className='text-center text-2xl'>Conversor DOCX para HTML</h1>
+      <button
+        className='
+      px-5 py-2 rounded-lg bg-emerald-600 max-w-sm hover:text-zinc-300 text-zinc-100 font-bold hover:bg-emerald-800 transition-colors justify-center'
+        onClick={handleConvert}
+      >
+        Converter Todos
+      </button>
+      <div className='w-full'>
+        <p className='mb-8'>Status da conversão:
+          <strong className={status ? 'bg-emerald-400 ml-3' : 'bg-red-600 ml-3'}>
+            {status}
+          </strong>
+        </p>
         <ProgressBarComponent progress={progress} />
       </div>
     </div>

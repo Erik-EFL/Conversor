@@ -4,16 +4,16 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --foreground-rgb: 34, 34, 34; /* Adjusted for a darker gray */
+  --background-start-rgb: 226, 226, 226; /* Adjusted for a lighter gray */
   --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 240, 240, 240; /* Adjusted for a lighter gray */
+    --background-start-rgb: 34, 34, 34; /* Adjusted for a darker gray */
+    --background-end-rgb: 34, 34, 34; /* Adjusted for a darker gray */
   }
 }
 
