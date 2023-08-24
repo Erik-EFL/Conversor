@@ -8,8 +8,8 @@ export const GET = async () => {
 };
 export const POST = async () => {
   try {
-    const docxDirectory = 'assets/docx';
-    const htmlOutputDirectory = 'assets/html';
+    const docxDirectory = 'public/assets/docx';
+    const htmlOutputDirectory = 'public/assets/html';
 
     const docxFiles = fs.readdirSync(docxDirectory);
 
