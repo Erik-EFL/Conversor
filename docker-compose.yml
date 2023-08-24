@@ -1,13 +1,12 @@
-version: '3'
+version: '3.8'
 services:
-  next-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
+      - .:/app
     environment:
-      - NODE_ENV=development
-    command: npm run dev
+      - NODE_ENV=production

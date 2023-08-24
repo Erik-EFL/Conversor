@@ -45,7 +45,7 @@ const defaultStyleMap = [
   "p[style-name='alternativa'] => p.alternativa:fresh",
   "p[style-name='alternativaCorreta'] => p.alternativaCorreta:fresh",
 
-  "p[style-name='Imagem'] => figure.imgsartigos > img.imagem:fresh",
+  "p[style-name='Imagem'] => figure.imgsartigos:fresh",
   "p[style-name='fonteImagem'] => p.font-img:fresh",
   "p[style-name='legendaImagem'] => p.leg-img:fresh",
   "p[style-name='audio'] => p.audio:fresh",

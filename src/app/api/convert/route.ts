@@ -3,10 +3,10 @@ import fs from 'fs';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-export const GET = async (req: Request, res: Response) => {
-  console.log("estou funcionando GET")
-}
-export const POST = async (req: Request) => {
+export const GET = async () => {
+  return NextResponse.json({ status: 'Aguardando' }, { status: 200 });
+};
+export const POST = async () => {
   try {
     const docxDirectory = 'assets/docx';
     const htmlOutputDirectory = 'assets/html';
@@ -22,25 +22,18 @@ export const POST = async (req: Request) => {
     for (const docxFile of docxFiles) {
       if (docxFile.endsWith('.docx')) {
         const docxPath = path.join(docxDirectory, docxFile);
-        const destinationFolderName = docxFile.replace('.docx', '');
-        const destinationPath = path.join(htmlOutputDirectory, destinationFolderName);
-
-        if (!fs.existsSync(destinationPath)) {
-          fs.mkdirSync(destinationPath);
-        }
-
         const htmlContent = await convertDocxToHtmlWithouchImage(docxPath);
 
-        const htmlFileName = 'index.html';
-        const outputPath = path.join(destinationPath, htmlFileName);
+        const htmlFileName = `${docxFile.replace('.docx', '.html')}`;
+        const outputPath = path.join(htmlOutputDirectory, htmlFileName);
         fs.writeFileSync(outputPath, htmlContent);
 
-        convertedFiles.push({ docx: docxFile, html: path.join(destinationFolderName, htmlFileName) });
+        NextResponse.json('Converting...');
+        convertedFiles.push({ docx: docxFile, html: htmlFileName });
       }
     }
-
     return NextResponse.json({
-      message: 'Conversion successful',
+      message: 'Conversion Complete',
       convertedFiles: convertedFiles,
     }, { status: 200 });
   } catch (err) {
