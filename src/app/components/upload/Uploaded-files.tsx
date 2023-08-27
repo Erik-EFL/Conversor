@@ -1,0 +1,17 @@
+import useRequest from '@/hooks/request.hook';
+import SectionScroll from '../Generic/Section-scroll.generic';
+
+const baseURL = '/api/upload';
+
+export default function SectionScrollUpload() {
+  const { GetFiles } = useRequest;
+  const { data } = GetFiles(baseURL);
+
+  if (!data) return <p className='text-primary-50'>Não há arquivos</p>;
+
+  const filteredFiles = data?.data.filter((fileName: string) => !fileName.endsWith('.zip') && fileName !== '.gitkeep');
+
+  return (
+    <SectionScroll url={baseURL} data={filteredFiles} tableName='Word Documents' />
+  );
+}

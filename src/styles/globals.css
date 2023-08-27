@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  @apply
+    border-primary-300
+    bg-primary-100
+  ;
+}
+
+body {
+  @apply
+    w-full
+    max-w-5xl
+    text-primary-700
+    max-h-screen
+    m-auto
+  ;
+}
