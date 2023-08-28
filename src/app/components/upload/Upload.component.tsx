@@ -2,18 +2,13 @@ import useRequest from '@/hooks/request.hook';
 import React, { useState } from 'react';
 import FileDropzone from './Custon-uploader';
 import ButtonGeneric from '../Generic/Button.generic';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const baseURL = '/api/upload'
 
 export default function UploadFile() {
   const [files, setFiles] = useState<File[]>([]);
-  const [status, setStatus] = useState<
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | undefined
-  >('default');
 
   const { UploadFile } = useRequest;
 
@@ -24,25 +19,25 @@ export default function UploadFile() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (files.length === 0) {
-      setStatus('danger');
-      return;
-    }
-
     try {
       const formData = new FormData();
       files.forEach((file) => formData.append('file', file));
 
-      setStatus('primary');
-      await UploadFile(formData, '/api/upload');
-      setStatus('success');
+      const message = await UploadFile(formData, baseURL);
+
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       setFiles([]);
-      setTimeout(() => {
-        setStatus('default');
-      }, 10000);
     } catch (error) {
-      setStatus('danger');
       console.error(error);
+      toast.error('An error occurred');
     }
   };
 
@@ -65,6 +60,7 @@ export default function UploadFile() {
           />
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

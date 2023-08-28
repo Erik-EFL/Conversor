@@ -71,7 +71,7 @@ const useRequest = {
 
     mutate(baseURL);
     const data = await response.json();
-    return data.uploadedFiles;
+    return data.message;
   },
 
   async ConvetFile(baseURL: string, convertFormat: string) {
@@ -91,7 +91,7 @@ const useRequest = {
 
     const data = await response.json();
 
-    return data.uploadedFiles;
+    return data.message;
   },
 
   async DeleteFile(fileName: string, baseURL: string) {

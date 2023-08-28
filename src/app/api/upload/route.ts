@@ -41,7 +41,13 @@ export async function POST(request: NextRequest) {
     uploadedFiles.push(file.name);
   }
 
-  return NextResponse.json({ success: true, uploadedFiles });
+  return new NextResponse(
+    JSON.stringify({
+      message: 'Uploaded Complete',
+      uploadedFiles,
+    }),
+    { status: 200, headers: { 'Content-Type': 'application/json' } }
+  );
 }
 
 export const DELETE = async (request: NextRequest) => {
