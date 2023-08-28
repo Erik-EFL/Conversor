@@ -97,31 +97,6 @@ const convertDocxToHtmlWithImage = async (
         .alphabetical { list-style-type: lower-greek; }
         .roman { list-style-type: upper-roman; }
 
-        table {
-          border-width: 1px;
-          border-spacing: 2px;
-          border-style: outset;
-          border-color: gray;
-          border-collapse: separate;
-          background-color: white;
-        }
-        table th {
-          border-width: 1px;
-          padding: 1px;
-          border-style: inset;
-          border-color: gray;
-          background-color: white;
-          -moz-border-radius: ;
-        }
-        table td {
-          border-width: 1px;
-          padding: 1px;
-          border-style: inset;
-          border-color: gray;
-          background-color: white;
-          -moz-border-radius: ;
-        }
-
       </style>
       <body style="margin: 0 auto;">
         ${$.html()}
