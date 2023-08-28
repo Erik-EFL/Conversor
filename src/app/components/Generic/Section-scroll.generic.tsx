@@ -45,7 +45,7 @@ export default function SectionScroll({
           <thead>
             <tr>
               {columns.map((item) => (
-                <th className='py-2 text-left uppercase tracking-wider' key={item.key}>{item.label}</th>
+                <th className={item.label === 'Documentos' ? `py-2 text-left uppercase tracking-wider`: `py-2 text-right uppercase tracking-wider`} key={item.key}>{item.label}</th>
               ))}
             </tr>
           </thead>
@@ -60,7 +60,7 @@ export default function SectionScroll({
                       <Delete fileName={item} baseURL={url} />
                     </td>
                   ) : (
-                    <td className='flex gap-3'>
+                    <td className='flex gap-3 justify-end'>
                       <Download fileName={item} baseURL={urlDownload} />
                       <Delete fileName={item} baseURL={url} />
                     </td>

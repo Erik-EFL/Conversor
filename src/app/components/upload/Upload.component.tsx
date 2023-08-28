@@ -54,7 +54,7 @@ export default function UploadFile() {
         </div>
         <form onSubmit={onSubmit}>
           <ButtonGeneric
-            additionalClassName={`w-[90%] py-2 font-bold transition-colors justify-center mb-3 ${
+            additionalClassName={`w-[70%] py-2 font-bold transition-colors justify-center mb-3 ${
               files.length === 0
                 ? 'text-gray-400 cursor-not-allowed border-3'
                 : 'bg-transparent hover:text-focus-50 text-zinc-100, border-focus-50 rounded-md border-3'

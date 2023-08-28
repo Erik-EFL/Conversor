@@ -14,7 +14,7 @@ function Conveter({ name, format }: propsController) {
     <ButtonGeneric
       name={name}
       onClick={() => ConvetFile(baseURL, format)}
-      additionalClassName={'w-[90%] hover:border-focus-50 hover:text-focus-50'}
+      additionalClassName={'w-[100%] hover:border-focus-50 hover:text-focus-50'}
     />
   );
 }

@@ -18,8 +18,8 @@ function FileDropzone({ onFilesDropped }: FileDropzoneProps) {
       className={`dropzone ${isDragActive ? 'active' : ''}`}
     >
       <input {...getInputProps()} />
-      <p className='text-primary-800'>Arraste e solte seus arquivos aqui</p>
-      <p className='text-primary-800'>Ou clique aqui para seleciona-los</p>
+      <p>Arraste e solte seus arquivos aqui</p>
+      <p>Ou clique aqui para seleciona-los</p>
     </div>
   );
 }

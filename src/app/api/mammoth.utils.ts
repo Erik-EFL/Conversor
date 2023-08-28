@@ -75,6 +75,53 @@ const convertDocxToHtmlWithImage = async (
           max-width: 100%;
           min-width: 340px;
         }
+
+        .uppercase { text-transform: uppercase; }
+
+        .highlight { color: #C78AFF; }
+
+        .highlight-yellow { color: #F1CD00; }
+
+        .highlight-green { color: #00FF00; }
+
+        .highlight-turquoise { color: #00FFE7; }
+
+        .highlight-pink { color: #FF00D2; }
+
+        .highlight-blue { color: #0041FF; }
+
+        .highlight-red { color: #FF0000; }
+
+        .bullets { list-style-type: disc; }
+        .numerical { list-style-type: decimal; }
+        .alphabetical { list-style-type: lower-greek; }
+        .roman { list-style-type: upper-roman; }
+
+        table {
+          border-width: 1px;
+          border-spacing: 2px;
+          border-style: outset;
+          border-color: gray;
+          border-collapse: separate;
+          background-color: white;
+        }
+        table th {
+          border-width: 1px;
+          padding: 1px;
+          border-style: inset;
+          border-color: gray;
+          background-color: white;
+          -moz-border-radius: ;
+        }
+        table td {
+          border-width: 1px;
+          padding: 1px;
+          border-style: inset;
+          border-color: gray;
+          background-color: white;
+          -moz-border-radius: ;
+        }
+
       </style>
       <body style="margin: 0 auto;">
         ${$.html()}
