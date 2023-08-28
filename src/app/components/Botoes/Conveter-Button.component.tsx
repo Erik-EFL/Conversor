@@ -18,7 +18,7 @@ function Conveter({ name, format }: propsController) {
       const message = await ConvetFile(baseURL, format);
       toast.success(message, {
         position: "top-right",
-        autoClose: 1500,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

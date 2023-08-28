@@ -27,7 +27,7 @@ export default function UploadFile() {
 
       toast.success(message, {
         position: 'top-right',
-        autoClose: 1500,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -60,7 +60,6 @@ export default function UploadFile() {
           />
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 }
