@@ -1,11 +1,11 @@
 import useRequest from '@/hooks/request.hook';
 import React, { useState } from 'react';
-import FileDropzone from './Custon-uploader';
-import ButtonGeneric from '../Generic/Button.generic';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ButtonGeneric from '../Generic/Button.generic';
+import FileDropzone from '../upload/Custon-uploader';
 
-const baseURL = '/api/upload'
+const baseURL = '/api/upload';
 
 export default function UploadFile() {
   const [files, setFiles] = useState<File[]>([]);
@@ -26,13 +26,13 @@ export default function UploadFile() {
       const message = await UploadFile(formData, baseURL);
 
       toast.success(message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: 'dark',
       });
       setFiles([]);
     } catch (error) {

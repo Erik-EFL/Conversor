@@ -16,13 +16,13 @@ export default function ButtonGeneric({ name, onClick, disabled, type, additiona
     switch(name) {
       case 'Download' || 'download':
         return (
-          <Tooltip content='Faça o Download'>
+          <Tooltip content='Download'>
             <Download type={type} onClick={onClick} className={additionalClassName} />
           </Tooltip>
         )
       case 'Delete' || 'delete':
         return (
-          <Tooltip content='Deletar arquivo'>
+          <Tooltip content='Deletar'>
             <Delete type={type} onClick={onClick} className={`${additionalClassName}`} />
           </Tooltip>
         )

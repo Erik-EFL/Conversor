@@ -1,6 +1,6 @@
 import { ContentFormat } from '@/app/api/mammoth.utils';
 import Conveter from '../Botoes/Conveter-Button.component';
-import UploadFile from '../upload/Upload.component';
+import UploadFile from '../Botoes/Upload-Button.component';
 
 function SideBar() {
   return (
@@ -9,10 +9,16 @@ function SideBar() {
       <div className='flex flex-col w-[100%] text-center justify-center items-center gap-3'>
         <h2>Converter para:</h2>
         <div>
-          <Conveter name='Usuario visualizar' format={ContentFormat.WithMetaAndImages} />
+          <Conveter
+            name='Usuario visualizar'
+            format={ContentFormat.WithMetaAndImages}
+          />
         </div>
         <div>
-          <Conveter  name="Desenvolvedores" format={ContentFormat.WithoutMetaAndImages} />
+          <Conveter
+            name='Desenvolvedores'
+            format={ContentFormat.WithoutMetaAndImages}
+          />
         </div>
       </div>
     </div>
