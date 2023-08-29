@@ -19,7 +19,9 @@ const useRequest = {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to download file');
+      const errorResponse = await response.json();
+      console.error('Error:', errorResponse.message);
+      return;
     }
 
     const blob = await response.blob();
@@ -34,9 +36,15 @@ const useRequest = {
     a.remove();
   },
 
-  async DownloadAllFiles() {
+  async DownloadAllFiles(fileNames: any) {
     try {
-      const response = await fetch('/api/download-all-files');
+      const response = await fetch('/api/download-all-files', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileNames }),
+      });
 
       if (!response.ok) {
         const errorResponse = await response.json();

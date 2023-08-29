@@ -1,10 +1,14 @@
 import useConverter from '@/hooks/request.hook';
 import ButtonGeneric from '../Generic/Button.generic';
 
-function DownloadAll() {
+interface propsController {
+  files: string[];
+}
+
+function DownloadAll({ files }: propsController) {
   const { DownloadAllFiles } = useConverter;
   const handleDownload = async () => {
-    DownloadAllFiles();
+    DownloadAllFiles(files);
   };
 
   return (

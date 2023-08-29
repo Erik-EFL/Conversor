@@ -1,20 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
+import { readFile, readdir, unlink } from 'fs/promises';
 import { join, extname } from 'path';
 import { directory } from '@/core/provider/pathProvider';
 import archiver from 'archiver';
 
-export async function GET(request: NextRequest) {
+export async function POST(request: Request) {
   const targetFolder = join(process.cwd(), directory.HtmlPath);
 
   try {
-    const files = await fs.promises.readdir(targetFolder);
+    const files = await readdir(targetFolder);
+
 
     if (files.length === 0) {
       return new NextResponse(JSON.stringify({ message: 'No files to download' }), {
         status: 404,
       });
     }
+
+    const requested = await request.json()
+    const { fileNames } = requested
+
+    const requestedFiles = fileNames || []
 
     const zipFileName = 'downloaded-files.zip';
     const zipFilePath = join(process.cwd(), directory.HtmlPath, zipFileName);
@@ -27,10 +34,9 @@ export async function GET(request: NextRequest) {
     archive.pipe(output);
 
     for (const fileName of files) {
-      // Check if the file is not a .zip file or a .gitkeep file
-      if (extname(fileName) !== '.zip' && fileName !== '.gitkeep') {
+      if (requestedFiles.includes(fileName) && extname(fileName) !== '.zip' && fileName !== '.gitkeep') {
         const filePath = join(targetFolder, fileName);
-        archive.append(await fs.promises.readFile(filePath), { name: fileName });
+        archive.append(await readFile(filePath), { name: fileName });
       }
     }
 
@@ -41,14 +47,20 @@ export async function GET(request: NextRequest) {
     });
 
     // Read the generated zip file and return it as a response
-    const zipFileBuffer = await fs.promises.readFile(zipFilePath);
+    const zipFileBuffer = await readFile(zipFilePath);
 
-    return new NextResponse(zipFileBuffer, {
+    const response =  new NextResponse(zipFileBuffer, {
       headers: {
         'Content-Type': 'application/zip',
         'Content-Disposition': `attachment; filename="${zipFileName}"`,
       },
     });
+
+    await unlink(zipFilePath).catch(error => {
+      console.error('Error deleting ZIP file:', error.message);
+    });
+
+    return response;
   } catch (error: any) {
     console.error(error);
     return new NextResponse(JSON.stringify({ message: `Error downloading files: ${error.message}` }), {

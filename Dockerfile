@@ -1,4 +1,4 @@
-FROM node:19 AS base
+FROM node:19-alpine AS base
 
 # Step 1. Rebuild the source code only when needed
 FROM base AS builder
@@ -30,6 +30,13 @@ RUN \
 
 # Set permissions for the public/assets/html directory
 RUN chown -R 1001:1001 /app/public
+RUN chmod -R 777 /app/public/
+
+RUN chown -R 1001:1001 /app/public/assets/html
+RUN chmod -R 777 /app/public/assets/html
+
+RUN chown -R 1001:1001 /app/public/assets/docx
+RUN chmod -R 777 /app/public/assets/docx
 
 # Step 2. Production image, copy all the files and run next
 FROM base AS runner

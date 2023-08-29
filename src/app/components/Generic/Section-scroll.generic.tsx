@@ -27,13 +27,14 @@ export default function SectionScroll({
   url,
   tableName,
 }: propsController) {
+
   return (
     <div className='w-full min-h-[324px]'>
       <div className={tableName === 'Word Documents' ? `flex border-b-3 border-t-3 w-full justify-between items-center mt-5 mb-5` : `flex border-b-3 w-full justify-between items-center mb-5`}>
         <h2 className={`px-2 py-4`}>{tableName}</h2>
         <div className='flex gap-5'>
           {
-            tableName === 'HTML documents' && <DownloadAll />
+            tableName === 'HTML documents' && <DownloadAll files={data} />
           }
           {
             tableName === 'HTML documents' ? <DeleteAll path='/api/convert' /> : <DeleteAll path='/api/upload' />
