@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center"> 📖 Docx to HTML 🖥️</h1>
 
-## Getting Started
+<div align="center" style=''>
 
-First, run the development server:
+![Preview](Aplicação.png)
+
+</div>
+
+<div align="center" style=''>
+
+[![descrição da imagem](https://img.youtube.com/vi/<ID DO VIDEO>/0.jpg)](https://www.youtube.com/watch?v=<ID DO VIDEO>)
+
+</div>
+
+## Instalar o docker
+
+Aqui são os links para download direto de acordo com seu sistema operacional, com exeção do linux, que depois precisa escolher a sua distribuição.
+
+[Docker para Windows](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)
+[Docker para MacOS Intel chip](https://desktop.docker.com/mac/main/amd64/Docker.dmg)
+[Docker para MacOS Apple silicon](https://desktop.docker.com/mac/main/arm64/Docker.dmg)
+[Docker para Linux Tutoriais de instalação](https://docs.docker.com/desktop/install/linux-install/)
+
+## Download da pasta do projeto
+
+Baixe o Zip abaixo e o salve na sua area de trabalho:
+
+[Download da pasta Conversor-main.zip](https://github.com/Erik-EFL/Conversor/archive/refs/heads/main.zip)
+
+Após o download concluido, descompacte a pasta, apois isso entre na pasta que foi extraida, se ouver outra
+pasta com mesmo nome dentro a coloque-a na sua area de trabalho e a outra pode apagar, caso não haja so prossiga com o tutorial.
+
+## Começando a usar
+
+Entre dentro da pasta Conversor-main a pasta correta tera varios arquivos dentro.
+Verifique se o docker esta em execução caso não esteja em execução o execute para poder prosseguir.
+Apos o docker estar em execução abra o terminal do seu sistema operacional copie e cole
+no seu terminal o comando abaixo:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+docker compose up -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+aperte enter para execulato.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Apos isso vai se iniciar um processo de instalação que pode demorar um pouco pode levar 5 minutos ou mais dependendo do computador então da tempo de tomar um cafezinho.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Você sabera que o processo terminou quando seu ternimal estiver parecido com esse da imagem:
 
-## Learn More
+![Preview](FinalDaInstalação.png)
 
-To learn more about Next.js, take a look at the following resources:
+Apos ter essa confirmação, pode fexar o terminal e va até o Docker.
+Ao chegar la você vai ver que tem algo a mais, e estara assim:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Preview](ProcessoConcluido.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Por fim para executar a aplicação basta clicar no 3000:3000 como esta na foto:
 
-## Deploy on Vercel
+![Preview](AquiParaExecutar.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Caso não seja o 3000:3000 seja outro pode clicar nele que funcionara da mesma forma.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Dica depois que termiar de usar, pare a execuçao do container pois ele consome recursos do seu computador. Ai quando for necessario pode iniciar a execução novamente.
+Para parar a execução ou iniciala basta fazer como na imagem abaixo:
+
+![Preview](ParaOararOContainerOuVoltarAExecutalo.png)
