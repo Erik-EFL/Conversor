@@ -6,12 +6,6 @@
 
 </div>
 
-<div align="center" style=''>
-
-[![descrição da imagem](https://img.youtube.com/vi/<ID DO VIDEO>/0.jpg)](https://www.youtube.com/watch?v=<ID DO VIDEO>)
-
-</div>
-
 ## Instalar o docker
 
 Aqui são os links para download direto de acordo com seu sistema operacional, com exeção do linux, que depois precisa escolher a sua distribuição.
