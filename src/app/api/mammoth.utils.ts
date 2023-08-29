@@ -67,35 +67,37 @@ const convertDocxToHtmlWithImage = async (
         <meta name="viewport" content="width=device-width, initial-scale=1">
       </head>
       <style>
+
         body {
           max-width: 900px;
           min-width: 340px
         }
+
         img {
           max-width: 100%;
           min-width: 340px;
         }
 
-        .uppercase { text-transform: uppercase; }
+        .destaqueCaixaAlta { text-transform: uppercase; }
+        .italico { text-transform: uppercase; }
+        .negrito { text-transform: uppercase; }
 
-        .highlight { color: #C78AFF; }
+        .realceAmarelo { background-color: #fffcc1; color: black; }
+        .realceAzul { background-color: #cbf0fe; color: black; }
+        .realceRosa { background-color: #ffdbf7; color: black; }
+        .realceTurquesa { background-color: #ccffff; color: black; }
+        .realceVerde { background-color: #e2ffca; color: black; }
+        .realceVermelho { background-color: #ffd8d8; color: black; }
+        .textoColorido { background-color: #0014a9; color: black; }
 
-        .highlight-yellow { color: #F1CD00; }
-
-        .highlight-green { color: #00FF00; }
-
-        .highlight-turquoise { color: #00FFE7; }
-
-        .highlight-pink { color: #FF00D2; }
-
-        .highlight-blue { color: #0041FF; }
-
-        .highlight-red { color: #FF0000; }
-
-        .bullets { list-style-type: disc; }
-        .numerical { list-style-type: decimal; }
-        .alphabetical { list-style-type: lower-greek; }
-        .roman { list-style-type: upper-roman; }
+        .listaAlfabetica { list-style-type: lower-greek; }
+        .listaBullets { list-style-type: disc; }
+        .listaNumerica { list-style-type: decimal; }
+        .listaRomana { list-style-type: upper-roman; }
+        .sublinhado { text-decoration: underline; }
+        .midiaAudio {background-color: #f068a9;}
+        .midiaImagem {background-color: #f068a9;}
+        .midiaVideo {background-color: #f068a9;}
 
       </style>
       <body style="margin: 0 auto;">
