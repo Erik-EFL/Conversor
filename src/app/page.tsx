@@ -1,11 +1,12 @@
-'use client';
+'use client'
 
 import React from 'react';
 import SideBar from './components/Global/Side-bar.global';
 import SectionScrollConverted from './components/convert/Converted-Files.';
 import SectionScrollUpload from './components/upload/Uploaded-files';
 
-const Home: React.FC = () => {
+
+function Home(){
   return (
     <div
       className='
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
           '
       >
         <SectionScrollConverted />
-        <SectionScrollUpload />
+        <SectionScrollUpload/>
       </section>
     </div>
   );

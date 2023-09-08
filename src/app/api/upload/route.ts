@@ -1,19 +1,20 @@
 import { directory } from "@/core/provider/pathProvider";
-import { writeFile, mkdir, unlink, readdir } from "fs/promises";
+import { writeFile, mkdir, unlink } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import { join } from "path";
+import { checkFileExists, logger, readDirectory, sanitizeData } from "../utils/functions.utils";
+import { StatusCodes } from "http-status-codes";
 
 export async function GET(request: NextRequest) {
   try {
-    const targetFolder = join(process.cwd(), directory.DocxPath);
-    const files = await readdir(targetFolder);
+    const files = await readDirectory(directory.DocxPath);
 
-    const data = files.filter(item => item !== '.gitkeep')
+    const data = sanitizeData(files)
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ success: false, error: "Failed to retrieve files" });
+    logger.error(error);
+    return NextResponse.json({ success: false, error: "Failed to retrieve files" }, { status: StatusCodes.OK });
   }
 }
 
@@ -25,18 +26,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false });
   }
 
-  const targetFolder = join(process.cwd(), directory.DocxPath);
-
-  await mkdir(targetFolder, { recursive: true });
+  await mkdir(directory.DocxPath, { recursive: true });
 
   const uploadedFiles = [];
 
-  for (const file of files) {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+  const allowedFileTypes = ['docx'];
 
-    const filePath = join(targetFolder, file.name);
-    await writeFile(filePath, buffer);
+  for (const file of files) {
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (!fileExtension || !allowedFileTypes.includes(fileExtension)) {
+      return NextResponse.json({ success: false, message: 'Invalid file type' });
+    }
+
+    try {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const filePath = join(directory.DocxPath, file.name);
+      await writeFile(filePath, buffer)
+    } catch (error) {
+      logger.error(`Error uploading file ${file.name}:`, error);
+      return NextResponse.json({ success: false, error }, { status: StatusCodes.BAD_REQUEST });
+    }
 
     uploadedFiles.push(file.name);
   }
@@ -46,7 +58,7 @@ export async function POST(request: NextRequest) {
       message: 'Uploaded Complete',
       uploadedFiles,
     }),
-    { status: 200, headers: { 'Content-Type': 'application/json' } }
+    { status: StatusCodes.OK, headers: { 'Content-Type': 'application/json' } }
   );
 }
 
@@ -54,7 +66,7 @@ export const DELETE = async (request: NextRequest) => {
   try {
     const header = request.headers.get('x-invoke-query');
 
-    if (!header) return NextResponse.json('Arquivo não encontrado ou inexistente', { status: 404 })
+    if (!header) return NextResponse.json('Arquivo não encontrado ou inexistente', { status: StatusCodes.NOT_FOUND })
 
     const decodedString = decodeURIComponent(header);
 
@@ -66,14 +78,23 @@ export const DELETE = async (request: NextRequest) => {
       return NextResponse.json({ success: false, message: 'Filename not provided' });
     }
 
-    const targetFolder = join(process.cwd(), directory.DocxPath);
-    const filePath = join(targetFolder, fileName);
+    const filePath = join(directory.DocxPath, fileName);
 
-    await unlink(filePath);
+    const fileExists = await checkFileExists(filePath);
 
-    return NextResponse.json({ success: true, message: 'Arquivo Deletado com Sucesso' }, { status: 200 });
+    if (fileExists) {
+      try {
+        await unlink(filePath);
+        return NextResponse.json({ success: true, message: 'Arquivo Deletado com Sucesso' }, { status: StatusCodes.OK });
+      } catch (error) {
+        logger.error('Error deleting file:', error);
+        return NextResponse.json({ message: 'Error deleting file' }, { status: StatusCodes.BAD_REQUEST });
+      }
+    }
+
+    return NextResponse.json({ success: true, message: 'Arquivo Deletado com Sucesso' }, { status: StatusCodes.OK });
   } catch (error) {
-    console.error('Error deleting file:', error);
-    return NextResponse.json({ message: 'Error deleting file' }, { status: 400 });
+    logger.error('Error deleting file:', error);
+    return NextResponse.json({ message: 'Error deleting file' }, { status: StatusCodes.BAD_REQUEST });
   }
 }

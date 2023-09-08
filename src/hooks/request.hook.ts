@@ -1,10 +1,8 @@
 import useSWR, { mutate } from 'swr';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const useRequest = {
   GetFiles(baseURL: string) {
-    const { data, error } = useSWR(baseURL, fetcher);
+    const { data, error } = useSWR(baseURL, (url: string) => fetch(url).then((res) => res.json()));
 
     return {
       data,
@@ -14,26 +12,29 @@ const useRequest = {
   },
 
   async DownloadFile(fileName: string, baseURL: string) {
-    const response = await fetch(`${baseURL}?filename=${fileName}`, {
-      method: 'GET',
-    });
+    try {
+      const response = await fetch(`${baseURL}?filename=${fileName}`, {
+        method: 'GET',
+      });
 
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      console.error('Error:', errorResponse.message);
-      return;
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error('Error:', errorResponse.message);
+      }
+
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      a.remove();
+    } catch (error) {
+      console.error('Network Error:', error);
     }
-
-    const blob = await response.blob();
-
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    a.remove();
   },
 
   async DownloadAllFiles(fileNames: any) {

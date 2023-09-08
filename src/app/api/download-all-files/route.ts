@@ -6,13 +6,13 @@ import { directory } from '@/core/provider/pathProvider';
 import archiver from 'archiver';
 
 export async function POST(request: Request) {
-  const targetFolder = join(process.cwd(), directory.HtmlPath);
-
   try {
-    const files = await readdir(targetFolder);
+    const files = await readdir(directory.HtmlPath);
 
 
-    if (files.length === 0) {
+    try {
+      await fs.promises.access(directory.HtmlPath, fs.constants.R_OK);
+    } catch (error) {
       return new NextResponse(JSON.stringify({ message: 'No files to download' }), {
         status: 404,
       });
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     for (const fileName of files) {
       if (requestedFiles.includes(fileName) && extname(fileName) !== '.zip' && fileName !== '.gitkeep') {
-        const filePath = join(targetFolder, fileName);
+        const filePath = join(directory.HtmlPath, fileName);
         archive.append(await readFile(filePath), { name: fileName });
       }
     }

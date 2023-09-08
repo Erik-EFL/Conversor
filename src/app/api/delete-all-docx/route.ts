@@ -1,29 +1,31 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import { join } from 'path';
 import { directory } from '@/core/provider/pathProvider';
+import fs from 'fs/promises';
+import { StatusCodes } from 'http-status-codes';
+import { NextResponse } from 'next/server';
+import { join } from 'path';
+import { checkDirectoryExists, readDirectory } from '../utils/functions.utils';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    const targetFolder = directory.DocxPath;
+    await checkDirectoryExists(directory.DocxPath);
 
-    const files = await fs.readdir(targetFolder);
+    const files = await readDirectory(directory.DocxPath);
 
-    for (const fileName of files) {
-      // Verifique se o nome do arquivo não é .gitkeep antes de excluir
-      if (fileName !== '.gitkeep') {
-        const filePath = join(targetFolder, fileName);
+    await Promise.all(files
+      .filter(fileName => fileName !== '.gitkeep')
+      .map(async fileName => {
+        const filePath = join(directory.DocxPath, fileName);
         await fs.unlink(filePath);
-      }
-    }
+      })
+    );
 
-    return new NextResponse(JSON.stringify({ message: 'All files deleted successfully' }), {
-      status: 200,
+    return NextResponse.json(({ message: 'All files deleted successfully' }), {
+      status: StatusCodes.OK,
     });
   } catch (error: any) {
     console.error(error);
-    return new NextResponse(JSON.stringify({ message: `Error deleting files: ${error.message}` }), {
-      status: 500,
+    return NextResponse.json(({ message: `Error deleting files: ${error.message}` }), {
+      status: StatusCodes.BAD_REQUEST,
     });
   }
 }
