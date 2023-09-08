@@ -5,7 +5,7 @@ import { join } from "path";
 import { checkFileExists, logger, readDirectory, sanitizeData } from "../utils/functions.utils";
 import { StatusCodes } from "http-status-codes";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const files = await readDirectory(directory.DocxPath);
 

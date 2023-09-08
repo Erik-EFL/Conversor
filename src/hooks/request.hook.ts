@@ -2,7 +2,12 @@ import useSWR, { mutate } from 'swr';
 
 const useRequest = {
   GetFiles(baseURL: string) {
-    const { data, error } = useSWR(baseURL, (url: string) => fetch(url).then((res) => res.json()));
+    const { data, error } = useSWR(baseURL, (url: string) => fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json()));
 
     return {
       data,
